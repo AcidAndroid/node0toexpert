@@ -1,0 +1,11 @@
+hola X 0=NaN
+hola X 1=NaN
+hola X 2=NaN
+hola X 3=NaN
+hola X 4=NaN
+hola X 5=NaN
+hola X 6=NaN
+hola X 7=NaN
+hola X 8=NaN
+hola X 9=NaN
+hola X 10=NaN
