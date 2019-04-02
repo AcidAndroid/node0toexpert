@@ -1,4 +1,5 @@
 const fs = require('fs');
+const colors = require('colors');
 
 let crearArchivo = (base, limite) => {
 
@@ -30,7 +31,9 @@ let mostrar = (base, limite) => {
     for (let index = 0; index <= limite; index++) {
         data += `${base} X ${index}=${base*index}\n`
     }
-    console.log(data);
+    console.log('===================================='.bgCyan.red);
+    console.log(data.red);
+    console.log('===================================='.blue.bgCyan);
 }
 
 module.exports = {

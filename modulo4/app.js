@@ -4,6 +4,7 @@ const {
     mostrar
 } = require('./multiplicar/multiplicar');
 const { argv } = require('./config/yargs');
+const colors = require('colors');
 
 
 
@@ -28,13 +29,13 @@ switch (commando) {
     case 'crear':
         console.log('Crear')
         crearArchivo(argv.base, argv.limite).then((archivo) => {
-            console.log('====================================');
-            console.log(`Archivo ${archivo} creado`);
-            console.log('====================================');
+            console.log('===================================='.bgGreen.red);
+            console.log(`Archivo ${archivo} creado`.cyan);
+            console.log('===================================='.bgGreen.red);
         }).catch((e) => {
-            console.log('==============ERROR======================');
-            console.log(e);
-            console.log('====================================');
+            console.log('==============ERROR======================'.bgRed);
+            console.log(e.bgRed);
+            console.log('===================================='.bgRed);
         })
         break;
     default:
