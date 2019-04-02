@@ -1,11 +1,8 @@
 const fs = require('fs');
 
-
-
-let crearArchivo = (base) => {
+let crearArchivo = (base, limite) => {
 
     let data = ""
-
 
 
 
@@ -15,9 +12,10 @@ let crearArchivo = (base) => {
             reject(`No es numero el valor de '${base}'`)
         }
 
-        for (let index = 0; index <= 10; index++) {
+        for (let index = 0; index <= limite; index++) {
             data += `${base} X ${index}=${base*index}\n`
         }
+
         fs.writeFile(`tablas/tabla_del_${base}.txt`, data, (err) => {
             if (err) {
                 reject(err)
@@ -27,6 +25,15 @@ let crearArchivo = (base) => {
     });
 }
 
+let mostrar = (base, limite) => {
+    let data = ""
+    for (let index = 0; index <= limite; index++) {
+        data += `${base} X ${index}=${base*index}\n`
+    }
+    console.log(data);
+}
+
 module.exports = {
-    crearArchivo
+    crearArchivo,
+    mostrar
 }
