@@ -1,26 +1,30 @@
 const { argv } = require('./config/yargs');
-const axios = require('axios');
+const { getLugar } = require('./datos/lugar');
+const { getClima } = require('./datos/clima');
+// const axios = require('axios');
 
 let direccion = argv.direccion
-
-direccion = encodeURI(direccion)
+let lugar
+    // direccion = encodeURI(direccion)
 
 
 
 console.log('Direccion o lugar:', direccion);
 
-const instance = axios.create({
-    baseURL: `https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php?location=${direccion}`,
-    // timeout: 1000,
-    headers: { 'X-RapidAPI-Key': '7ad8da25c2msh1b36401408c9c54p1eb3c7jsn01b23658eb05' }
-});
 
-instance.get().then(respuesta => {
-    console.log('Estatus', respuesta.status);
-    console.log('Datos', respuesta.data);
-    console.log('Datos finales', respuesta.data.Results[0]);
-    // console.log('Toda la respuesta', respuesta);
+getLugar(direccion).then(response => {
+        lugar = response
+        console.log(lugar)
+    })
+    .catch(err => console.log(err))
 
-}).catch(err => {
-    console.log("Error en peticion", err);
-})
+//Objeto prueba
+/**
+ * { direccion: 'Yucatan, Mexico',
+  lat: '32.599998',
+  lng: '-115.089996' }
+ * 
+ */
+
+getClima({ direccion: 'Yucatan, Mexico', lat: '32.599998', lng: '-115.089996' })
+    .then(res => { console.log(res) })
