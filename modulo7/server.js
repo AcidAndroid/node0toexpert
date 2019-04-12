@@ -1,7 +1,11 @@
 const express = require('express');
 app = express()
-
 const hbs = require('hbs');
+
+//Helpres de hbs para usar y repetir codigo
+require('./hbs/helpers');
+
+
 
 
 
@@ -11,8 +15,8 @@ hbs.registerPartials(__dirname + '/views/parciales')
 app.use(express.static(__dirname + '/public'))
 
 
-//Helpres de hbs
-hbs.registerHelper('getAnio', () => { return new Date().getFullYear() })
+
+
 
 app.set('view engine', 'hbs');
 
@@ -26,7 +30,7 @@ app.get('/', (req, resp) => {
 
     // resp.send(re)
     resp.render('home.hbs', {
-            nombre: 'Pollo'
+            nombre: 'gustavo adolfo casimiro pinzon'
         })
         // res.send('Hola mundo!')
 
@@ -34,9 +38,7 @@ app.get('/', (req, resp) => {
 
 
 app.get('/about', (req, res) => {
-    res.render('about.hbs', {
-        anio: new Date().getFullYear()
-    })
+    res.render('about.hbs')
 })
 
 
