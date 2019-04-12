@@ -5,7 +5,7 @@ const hbs = require('hbs');
 //Helpres de hbs para usar y repetir codigo
 require('./hbs/helpers');
 
-
+const port = process.env.PORT || 3000
 
 
 
@@ -42,6 +42,6 @@ app.get('/about', (req, res) => {
 })
 
 
-app.listen(3000, () => {
-    console.log('Escucnado en el puerto 3000');
+app.listen(port, () => {
+    console.log(`Escucnado en el puerto ${port}`);
 })
