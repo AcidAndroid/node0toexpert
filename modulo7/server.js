@@ -1,23 +1,40 @@
 const express = require('express');
-let app = express()
+app = express()
 
-//Contenido estatico
+const hbs = require('hbs');
+
+
+
+//Paciales para no repetir html
+hbs.registerPartials(__dirname + '/views/parciales')
+    //Contenido estatico
 app.use(express.static(__dirname + '/public'))
+
+app.set('view engine', 'hbs');
 
 app.get('/', (req, resp) => {
 
     let re = {
-        nombre: 'Gustaov',
+        nombre: 'Gustavo',
         edad: 33,
         url: req.url
     }
 
-    resp.send(re)
+    // resp.send(re)
+    resp.render('home.hbs', {
+            nombre: 'Pollo',
+            anio: new Date().getFullYear()
+        })
         // res.send('Hola mundo!')
 
 })
 
-app.listen
+
+app.get('/home', (req, res) => {
+    res.render('about.hbs')
+})
+
+
 app.listen(3000, () => {
     console.log('Escucnado en el puerto 3000');
 })
