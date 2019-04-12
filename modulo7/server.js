@@ -1,6 +1,9 @@
 const express = require('express');
 let app = express()
 
+//Contenido estatico
+app.use(express.static(__dirname + '/public'))
+
 app.get('/', (req, resp) => {
 
     let re = {
