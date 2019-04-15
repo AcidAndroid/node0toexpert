@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-require('../config/config')
+require('./config/config')
 
 //Ahora se maneja en un archivo de configuracion
 // const port = process.env.PORT | 3000
