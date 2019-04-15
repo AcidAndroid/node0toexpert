@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "start": "node rest-sever/server",
         "test": "nodemon server"
     },
     "author": "",
