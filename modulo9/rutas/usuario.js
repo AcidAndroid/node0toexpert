@@ -1,6 +1,9 @@
+/**
+ * Dependnecias 
+ * */
 const express = require('express');
 const app = express();
-
+const bcrypt = require('bcrypt');
 
 
 /**
@@ -8,6 +11,12 @@ const app = express();
  */
 
 const Usuario = require('../modelos/usuario');
+
+
+/**
+ * Funciones
+ */
+
 
 app.get('/', (req, res) => {
     res.json('Hola')
@@ -25,7 +34,7 @@ app.post('/usuario/', (req, res) => {
     let usuario = new Usuario({
         nombre: body.nombre,
         email: body.email,
-        password: body.password,
+        password: bcrypt.hashSync(body.password, 15),
         role: body.role
     })
 
@@ -39,6 +48,8 @@ app.post('/usuario/', (req, res) => {
 
             })
         }
+
+        usuarioDbOk.password = null
 
         console.log(`Body enviado`, body);
         res.json({ ok: true, usuario: usuarioDbOk })

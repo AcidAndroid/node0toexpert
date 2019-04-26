@@ -43,6 +43,15 @@ let usuarioSchema = new mongoose.Schema({
 
 });
 
+//Se vita con esta linea que regrese lova lores ocultos al volver a generar el JSON de respuesta
+usuarioSchema.methods.toJSON = function() {
+
+    let user = this
+    let userObject = user.toObject()
+    delete userObject.password
+
+    return userObject
+}
 usuarioSchema.plugin(uniqueValidator, { message: 'El campo {PATH} ya existe en la BD para ese valor' })
 
 module.exports = mongoose.model('Usuario', usuarioSchema)
