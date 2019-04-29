@@ -30,14 +30,16 @@ app.get('/', (req, res) => {
 })
 
 /**
- * Obtiene los datos de usuario
+ * Obtiene los datos de todos los usuarios activos
  */
 app.get('/usuario', (req, res) => {
 
     let desde = Number(req.query.desde || 0)
     let limite = Number(req.query.limite || 5)
 
-    let condicionFiltro = {}
+    let condicionFiltro = {
+        estado: true
+    }
 
     //El segundo parametro es la espeicifacion de que campos mostrar en el find
     Usuario.find(condicionFiltro, 'nombre estado email')
@@ -103,7 +105,10 @@ app.post('/usuario/', (req, res) => {
         usuarioDbOk.password = null
 
         console.log(`Body enviado`, body);
-        res.json({ ok: true, usuario: usuarioDbOk })
+        res.json({
+            ok: true,
+            usuario: usuarioDbOk
+        })
     })
 
 
@@ -129,7 +134,10 @@ app.put('/usuario/:id', (req, res) => {
     let body = underscore.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado'])
         // let body = req.body
 
-    Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDBOk) => {
+    Usuario.findByIdAndUpdate(id, body, {
+        new: true,
+        runValidators: true
+    }, (err, usuarioDBOk) => {
 
         if (err) {
             return res.status(400).json({
@@ -148,10 +156,98 @@ app.put('/usuario/:id', (req, res) => {
 
 })
 
+/**
+ * Da de baja o borra de la coleccion de usaurios
+ */
 app.delete('/usuario/:id', (req, res) => {
-    res.json('delete Gustavo')
+
+    let borrado = req.body.borrado
+    let id = req.params.id
+    let body = underscore.pick(req.body, ['estado'])
+
+
+    if (borrado) {
+        return borradoUsuario(id, res)
+    }
+
+    return bajaUsuario(id, res)
+
+    // res.json('delete Gustavo')
 })
 
+/**
+ * Baja del usaurio pero sin borrar de la coleccion
+ * @param {number} id 
+ * @param {*} res 
+ */
+const bajaUsuario = (id, res) => {
+
+    let cambioEstado = {
+        estado: false
+    }
+
+    Usuario.findByIdAndUpdate(id, cambioEstado, {
+        new: true
+    }, (err, usaurioDbBajaOk) => {
+        if (err) {
+            return res.status(404).json({
+                ok: false,
+                message: 'Error en DELETE',
+                err
+            })
+        }
+
+        if (!usaurioDbBajaOk) {
+            return res.status(404).json({
+                ok: false,
+                err: {
+                    message: "Usuario no existe",
+                }
+            })
+        }
+
+        return res.json({
+            ok: true,
+            usuario: usaurioDbBajaOk
+        })
+
+    })
+
+}
+
+/**
+ * Borra de la Coleccion fisicamente el registro
+ * @param {*} id 
+ * @param res
+ */
+const borradoUsuario = (id, res) => {
+    Usuario.findByIdAndRemove(id, (err, usuarioDbBorradoOk) => {
+
+        if (err) {
+            return res.status(404).json({
+                ok: false,
+                message: 'Error en DELETE',
+                err
+            })
+        }
+
+        if (!usuarioDbBorradoOk) {
+            return res.status(404).json({
+                ok: false,
+                err: {
+                    message: "Usuario no existe",
+                }
+            })
+        }
+
+        return res.json({
+            ok: true,
+            usuario: usuarioDbBorradoOk
+        })
+
+    })
+
+}
 
 
 
