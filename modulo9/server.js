@@ -17,7 +17,7 @@ app.use(require('./rutas/usuario'))
 
 
 
-mongoose.connect('mongodb://192.168.56.102:27017/cafe', { useNewUrlParser: true }, (err, resDb) => {
+mongoose.connect('mongodb://192.168.56.102:27017/cafe', { useNewUrlParser: true, useCreateIndex: true }, (err, resDb) => {
     if (err) {
         throw err
     }
