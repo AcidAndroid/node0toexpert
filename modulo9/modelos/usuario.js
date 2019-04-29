@@ -43,7 +43,7 @@ let usuarioSchema = new mongoose.Schema({
 
 });
 
-//Se vita con esta linea que regrese lova lores ocultos al volver a generar el JSON de respuesta
+//Se evita con esta linea que regrese los valores ocultos al volver a generar el JSON de respuesta
 usuarioSchema.methods.toJSON = function() {
 
     let user = this
