@@ -22,7 +22,9 @@ const Usuario = require('../modelos/usuario');
  * Funciones
  */
 
-
+/** 
+ * Ssolo mueestra un pequeño
+ */
 app.get('/', (req, res) => {
     res.json('Hola')
 })
@@ -31,7 +33,44 @@ app.get('/', (req, res) => {
  * Obtiene los datos de usuario
  */
 app.get('/usuario', (req, res) => {
-    res.json('get Gustavo')
+
+    let desde = Number(req.query.desde || 0)
+    let limite = Number(req.query.limite || 5)
+
+    let condicionFiltro = {}
+
+    //El segundo parametro es la espeicifacion de que campos mostrar en el find
+    Usuario.find(condicionFiltro, 'nombre estado email')
+        .skip(desde)
+        .limit(limite)
+        .exec((err, usuariosDBOk) => {
+            if (err) {
+                return res.status(404).json({
+                    ok: false,
+                    err,
+                    message: 'Error en GET'
+                })
+            }
+
+            Usuario.count(condicionFiltro, (err, conteo) => {
+
+                console.log(usuariosDBOk);
+                // res.json('get Gustavo')
+
+                res.json({
+                    ok: true,
+                    total: conteo,
+                    usuarios: usuariosDBOk,
+
+                })
+            })
+
+
+        })
+
+
+
+
 })
 
 /**
