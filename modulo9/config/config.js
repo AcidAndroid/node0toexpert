@@ -10,6 +10,9 @@ let urlDB
 if (process.env.NODE_ENV == 'dev') {
     urlDB = 'mongodb://192.168.56.102:27017/cafe'
 } else {
-    urlDB = 'mongodb://mongo:mongomon9@ds145456.mlab.com:45456/cafe'
+    //Esta linea se usa para cuando se despliega a produccion en heroku
+    // urlDB = 'mongodb://mongo:mongomon9@ds145456.mlab.com:45456/cafe'
+    //Cuando se quiere proteger que no se vean los datos en HERORKU
+    urlDB = process.env.MONGO_DB
 }
 process.env.URLDB = urlDB
