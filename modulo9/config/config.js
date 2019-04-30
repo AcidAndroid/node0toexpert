@@ -2,6 +2,8 @@ process.env.PORT = process.env.PORT || 3000
 
 /**
  * Entorno
+ * La variable process.env.NODE_ENV la asigna Hroku por default si no es Heroku
+ * entonces es desarrollo y la varialbe no existe asigna los valoeres
  */
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 
