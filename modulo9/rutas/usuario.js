@@ -17,6 +17,11 @@ const underscore = require('underscore');
 
 const Usuario = require('../modelos/usuario');
 
+/**
+ * Middleware para validar token
+ * 
+ */
+const { verificaToken } = require('../middlewares/auntenticacion');
 
 /**
  * Funciones
@@ -32,7 +37,7 @@ app.get('/', (req, res) => {
 /**
  * Obtiene los datos de todos los usuarios activos
  */
-app.get('/usuario', (req, res) => {
+app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = Number(req.query.desde || 0)
     let limite = Number(req.query.limite || 5)
@@ -56,7 +61,7 @@ app.get('/usuario', (req, res) => {
 
             Usuario.count(condicionFiltro, (err, conteo) => {
 
-                console.log(usuariosDBOk);
+                // console.log(usuariosDBOk);
                 // res.json('get Gustavo')
 
                 res.json({
