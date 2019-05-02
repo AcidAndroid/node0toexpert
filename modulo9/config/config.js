@@ -10,7 +10,11 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 /**Base de datos */
 let urlDB
 if (process.env.NODE_ENV == 'dev') {
-    urlDB = 'mongodb://192.168.56.102:27017/cafe'
+    //Local pero con vbox maquina virutal
+    // urlDB = 'mongodb://192.168.56.102:27017/cafe'
+
+    //Local pero conectandose a mlab
+    urlDB = 'mongodb://mongo:mongomon9@ds145456.mlab.com:45456/cafe'
 } else {
     //Esta linea se usa para cuando se despliega a produccion en heroku
     // urlDB = 'mongodb://mongo:mongomon9@ds145456.mlab.com:45456/cafe'

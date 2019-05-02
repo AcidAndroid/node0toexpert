@@ -11,7 +11,13 @@ require('./config/config')
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(require('./rutas/usuario'))
+
+//Las rutas ya no exportan una a una....
+// app.use(require('./rutas/usuario'))
+// app.use(require('./rutas/login'))
+
+//Se exportan todas las rutas en una sola
+app.use(require('./rutas/rutas'))
 
 
 
