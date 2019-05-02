@@ -10,8 +10,12 @@ const app = express();
 /**
  * Libreria de encriptacion
  */
-
 const bcrypt = require('bcrypt');
+/**
+ * Json Web Token
+ */
+const jwt = require('jsonwebtoken');
+
 /**
  * Libreria para dar uso y filtrado de que atributos quitar de un JSON entre otras cosas
  */
@@ -67,10 +71,12 @@ app.post('/login', (req, res) => {
 
         /**No hay ningun error */
 
+        let token = jwt.sign({ usuaurio: usuarioDbOk }, process.env.SEED_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
+
         res.json({
             ok: true,
-            usuaurio:usuarioDbOk
-            ,token: 'TMPToken'
+            usuaurio: usuarioDbOk,
+            token
         })
     })
 

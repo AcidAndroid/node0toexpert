@@ -7,6 +7,18 @@ process.env.PORT = process.env.PORT || 3000
  */
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 
+/**
+ * Vencimiento del token
+ */
+process.env.CADUCIDAD_TOKEN = 60 * 5
+
+
+/**
+ * Seed de atentnticacion
+ */
+process.env.SEED_TOKEN = process.env.SEED_TOKEN || 'este-es-el-seed-de-desarrollo'
+
+
 /**Base de datos */
 let urlDB
 if (process.env.NODE_ENV == 'dev') {
