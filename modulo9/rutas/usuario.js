@@ -21,7 +21,7 @@ const Usuario = require('../modelos/usuario');
  * Middleware para validar token
  * 
  */
-const { verificaToken } = require('../middlewares/auntenticacion');
+const { verificaToken, verificaRole } = require('../middlewares/auntenticacion');
 
 /**
  * Funciones
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 /**
  * Obtiene los datos de todos los usuarios activos
  */
-app.get('/usuario', verificaToken, (req, res) => {
+app.get('/usuario', [verificaToken], (req, res) => {
 
     let desde = Number(req.query.desde || 0)
     let limite = Number(req.query.limite || 5)
@@ -84,10 +84,10 @@ app.get('/usuario', verificaToken, (req, res) => {
  * Ingresa los datos del usuario
  * 
  */
-app.post('/usuario/', (req, res) => {
+app.post('/usuario/', [verificaToken, verificaRole], (req, res) => {
 
 
-    let body = req.bodys
+    let body = req.body
 
     let usuario = new Usuario({
         nombre: body.nombre,
@@ -133,7 +133,7 @@ app.post('/usuario/', (req, res) => {
  * Actualiza un usaurio
  * @param id Id de usuario
  */
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
     let id = req.params.id
         //Estas lineas permiten actulizar solo algunos campos del objeto y otros aunque se manden los ignora
     let body = underscore.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado'])
@@ -164,7 +164,7 @@ app.put('/usuario/:id', (req, res) => {
 /**
  * Da de baja o borra de la coleccion de usaurios
  */
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
 
     let borrado = req.body.borrado
     let id = req.params.id

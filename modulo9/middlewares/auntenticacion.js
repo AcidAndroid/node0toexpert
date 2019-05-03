@@ -1,5 +1,5 @@
 /**
- * Middelware para erificacion del token
+ * Middelware para Verificaciones 
  * 
  */
 /**
@@ -7,30 +7,56 @@
  */
 const jwt = require('jsonwebtoken');
 
+/**
+ * Verificacion  del token
+ */
 let verificaToken = (req, res, next) => {
 
-    let token = req.get('token')
+    let token = req.get('token');
 
 
-    jwt.verify(token, process.env.SEED_TOKEN, (err, docoded) => {
+    jwt.verify(token, process.env.SEED_TOKEN, (err, decoded) => {
 
         if (err) {
             return res.status(401).json({
                 ok: false,
-                err
-            })
+                err: {
+                    message: 'Token no válido',
+                    err
+                }
+            });
         }
 
-        console.log('Resutlado de decoded', docoded);
-        req.usuario = docoded.usuario
+        req.usuario = decoded.usuario;
+        // console.log('Variable usuario en req:', decoded);
+        next();
+
+    });
+
+
+
+};
+
+/**
+ * Verificacion del rol adecuado para operaciones(ADMIN_ROLE)
+ */
+let verificaRole = (req, res, next) => {
+
+    let role = req.usuario
+
+    if (role.role == "ADMIN_ROLE") {
         next()
+        return
+    }
 
-    })
-
-    // res.json({
-    //     token
-    // })
-
+    return res.json({
+            ok: false,
+            err: {
+                message: "El usuario es no administador; es:" + role.role
+            }
+        })
+        // next()
 }
 
-module.exports = { verificaToken }
+
+module.exports = { verificaToken, verificaRole }

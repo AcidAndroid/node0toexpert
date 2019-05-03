@@ -10,7 +10,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 /**
  * Vencimiento del token
  */
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 30
+// process.env.CADUCIDAD_TOKEN = 60 * 60 * 30
+process.env.CADUCIDAD_TOKEN = "15 days"
 
 
 /**

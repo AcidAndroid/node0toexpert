@@ -71,11 +71,11 @@ app.post('/login', (req, res) => {
 
         /**No hay ningun error */
 
-        let token = jwt.sign({ usuaurio: usuarioDbOk }, process.env.SEED_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
+        let token = jwt.sign({ usuario: usuarioDbOk }, process.env.SEED_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
 
         res.json({
             ok: true,
-            usuaurio: usuarioDbOk,
+            usuario: usuarioDbOk,
             token
         })
     })
