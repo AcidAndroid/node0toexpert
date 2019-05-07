@@ -12,6 +12,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+//hacer publica la carpeta de html
+const path = require('path')
+app.use(express.static(path.resolve(__dirname, './public')))
+
+console.log(path.resolve(__dirname, './public'));
+
+
 //Las rutas ya no exportan una a una....
 // app.use(require('./rutas/usuario'))
 // app.use(require('./rutas/login'))

@@ -30,9 +30,9 @@ const { verificaToken, verificaRole } = require('../middlewares/auntenticacion')
 /** 
  * Ssolo mueestra un pequeño
  */
-app.get('/', (req, res) => {
-    res.json('Hola')
-})
+// app.get('/', (req, res) => {
+//     res.json('Hola')
+// })
 
 /**
  * Obtiene los datos de todos los usuarios activos
