@@ -31,7 +31,9 @@ app.get('/categoria', [verificaToken], (req, res) => {
             categoriasEncontradas = conteo
         })
         // console.log(categoriasEncontradas);
-    modeloCategoria.find({}, (err, categoriaDbOk) => {
+    modeloCategoria.find({}).sort({
+        descripcion: 1
+    }).populate('usuario', 'nombre email').exec((err, categoriaDbOk) => {
         if (err) {
             return res.status(404).json({
                 ok: false,
@@ -64,7 +66,7 @@ app.get('/categoria/:id', [verificaToken], (req, res) => {
     })
     modeloCategoria.findById({
         _id: id
-    }, (err, categoriaDbOk) => {
+    }).exec((err, categoriaDbOk) => {
         if (err) {
             return res.status(404).json({
                 ok: false,
@@ -88,11 +90,11 @@ app.post('/categoria', [verificaToken], (req, res) => {
     let body = req.body
     let usuario = req.usuario
 
-    // console.log(usuario);
+    console.log(usuario);
 
     let categoria = new modeloCategoria({
         descripcion: body.descripcion,
-        usuario: usuario,
+        usuario: usuario._id,
     })
 
     categoria.save((err, categoriaDbOk) => {

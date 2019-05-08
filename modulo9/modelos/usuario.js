@@ -54,4 +54,4 @@ usuarioSchema.methods.toJSON = function() {
 }
 usuarioSchema.plugin(uniqueValidator, { message: 'El campo {PATH} ya existe en la BD para ese valor' })
 
-module.exports = mongoose.model('Usuario', usuarioSchema)
+module.exports = mongoose.model('usuario', usuarioSchema)

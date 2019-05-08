@@ -19,4 +19,4 @@ let categoriaSchema = new mongoose.Schema({
     //     message: 'El campo {PATH} ya existe en la BD para ese valor'
     // })
 
-module.exports = mongoose.model('Categoria', categoriaSchema)
+module.exports = mongoose.model('categoria', categoriaSchema)
