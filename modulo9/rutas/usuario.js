@@ -145,6 +145,15 @@ app.put('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
     }, (err, usuarioDBOk) => {
 
         if (err) {
+            return res.status(500).json({
+                ok: false,
+                message: 'Error en PUT',
+                err,
+
+            })
+        }
+
+        if (!usuarioDBOk) {
             return res.status(400).json({
                 ok: false,
                 message: 'Error en PUT',

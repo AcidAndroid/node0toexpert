@@ -7,6 +7,8 @@
  */
 const jwt = require('jsonwebtoken');
 
+
+
 /**
  * Verificacion  del token
  */
