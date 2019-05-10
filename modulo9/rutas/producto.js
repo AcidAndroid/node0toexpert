@@ -204,19 +204,10 @@ app.delete('/producto/:id', [verificaToken], (req, res) => {
     let usuario = req.usuario._id
 
 
-    let producto = new modeloProducto({
-        nombre,
-        precioUni,
-        descripcion,
-        disponible,
-        categoria,
-        usuario
-    })
 
 
-    modeloProducto.findByIdAndRemove(id, {
-        new: true,
-        runValidators: true
+    modeloProducto.findByIdAndUpdate(id, {
+        disponible: false
     }, (err, productoDbOk) => {
 
 
