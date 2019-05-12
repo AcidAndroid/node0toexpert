@@ -125,14 +125,14 @@ app.post('/producto', [verificaToken], (req, res) => {
     producto.save((err, productoDbOk) => {
 
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             })
         }
 
         if (!productoDbOk) {
-            return res.status(500).json({
+            return res.status(400).json({
                 ok: false,
                 err: {
                     messasge: 'Error en POST producto',
@@ -169,14 +169,14 @@ app.put('/producto/:id', [verificaToken], (req, res) => {
 
 
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             })
         }
 
         if (!productoDbOk) {
-            return res.status(500).json({
+            return res.status(400).json({
                 ok: false,
                 err: {
                     messasge: 'Error en POST producto',
@@ -212,14 +212,14 @@ app.delete('/producto/:id', [verificaToken], (req, res) => {
 
 
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             })
         }
 
         if (!productoDbOk) {
-            return res.status(500).json({
+            return res.status(400).json({
                 ok: false,
                 err: {
                     messasge: 'Error en POST producto',
