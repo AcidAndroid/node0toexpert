@@ -104,6 +104,39 @@ app.get('/producto/:id', (req, res) => {
 })
 
 /**
+ * Bsuqeda de productos por un termino
+ */
+app.get('/producto/buscar/:termino',[verificaToken], (req, res) => {
+
+
+    let termino = req.params.termino
+
+let reg = new RegExp(termino,'i')
+
+    modeloProducto.find({nombre:reg})
+    // .populate('categoria', 'nombre')
+    .exec((err,productosDbOk)=>{
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err,
+            })
+        }
+
+        if (!productosDbOk) {
+            return res.json({
+                ok: false,
+                err: {
+                    messasge: 'No hay productos con esa clave'
+                }
+            })
+        }
+
+    });
+
+});
+
+/**
  * Agregar un producto
  */
 app.post('/producto', [verificaToken], (req, res) => {
