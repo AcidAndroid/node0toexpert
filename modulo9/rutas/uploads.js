@@ -110,6 +110,8 @@ const imagenUsuario = (id, res, nombreArchivo) => {
         }
 
         if (!usuarionDbOk) {
+            //Borra imagenees de usuarios que ya no existen
+            borrarArchivo(nombreArchivo, 'usuario')
             return res.status(500).json({
                 ok: false,
                 err: {
