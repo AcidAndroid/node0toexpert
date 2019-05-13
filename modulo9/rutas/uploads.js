@@ -93,7 +93,7 @@ ruta.put('/upload/:tipo/:id', (req, res) => {
 });
 
 /**
- * 
+ * Carga de Imagen de usuario en el Filesystem del servidor
  * @param {*} id Id del usaurio
  * @param {*} res Respuesta del servidor
  * @param {*} nombreArchivo Nombre del archivo
@@ -144,6 +144,11 @@ const imagenProducto = (id) => {
 
 }
 
+/**
+ * Borra los archivos de imagenes para no tener repetidos o desactulizados
+ * @param {*} nombreARchivo Nombre del archivo
+ * @param {*} tipo Tipo o ruta donde esta el archivo a borrar
+ */
 const borrarArchivo = (nombreARchivo, tipo) => {
     //Borra el archivo que existe previamente para poner la nueva y no tener imagenes almacenadas
 
