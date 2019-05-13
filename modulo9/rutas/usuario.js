@@ -21,7 +21,10 @@ const Usuario = require('../modelos/usuario');
  * Middleware para validar token
  * 
  */
-const { verificaToken, verificaRole } = require('../middlewares/auntenticacion');
+const {
+    verificaToken,
+    verificaRole
+} = require('../middlewares/auntenticacion');
 
 /**
  * Funciones
@@ -47,7 +50,7 @@ app.get('/usuario', [verificaToken], (req, res) => {
     }
 
     //El segundo parametro es la espeicifacion de que campos mostrar en el find
-    Usuario.find(condicionFiltro, 'nombre estado email')
+    Usuario.find(condicionFiltro, 'nombre estado email img')
         .skip(desde)
         .limit(limite)
         .exec((err, usuariosDBOk) => {
@@ -74,10 +77,6 @@ app.get('/usuario', [verificaToken], (req, res) => {
 
 
         })
-
-
-
-
 })
 
 /**
