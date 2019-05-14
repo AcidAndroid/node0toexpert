@@ -6,6 +6,7 @@ const ruta = express();
  * Modelos
  */
 const modeloUsuario = require('../modelos/usuario');
+const modeloProducto = require('../modelos/producto');
 
 
 const fs = require('fs');
@@ -86,8 +87,21 @@ ruta.put('/upload/:tipo/:id', (req, res) => {
             });
         }
 
-        //Actulizar imagen de usaurio
-        imagenUsuario(id, res, nombreArchivo)
+        switch (tipo) {
+            case 'usuario':
+                //Actulizar imagen de usaurio
+                imagenUsuario(id, res, nombreArchivo)
+                break;
+            case 'producto':
+                //Actulizar la imagen de producto
+                imagenProducto(id, res, nombreArchivo)
+                break;
+            default:
+                break;
+        }
+
+
+
 
     })
 });
@@ -135,13 +149,52 @@ const imagenUsuario = (id, res, nombreArchivo) => {
         })
 
     })
-    modeloUsuario.findByIdAndUpdate(id, {}, (err, usuarionDbOk) => {
 
-    })
 }
 
-const imagenProducto = (id) => {
+/**
+ * 
+ * @param {*} id Id del producto 
+ * @param {*} res Respuesta del servidor
+ * @param {*} nombreArchivo Nombre del archivo
+ */
+const imagenProducto = (id, res, nombreArchivo) => {
 
+    modeloProducto.findById(id, (err, productoDbOk) => {
+        //Erro al buscar prodcutos
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        }
+
+        if (!productoDbOk) {
+            //Borra imagenees de productos que ya no existen
+            borrarArchivo(nombreArchivo, 'producto')
+            return res.status(500).json({
+                ok: false,
+                err: {
+                    message: 'Producto no existe'
+                }
+            });
+        }
+
+
+        //Actuliza la imagen borrando la previa y dejando solo la nueva
+        borrarArchivo(productoDbOk.img, 'producto')
+
+        productoDbOk.img = nombreArchivo
+
+        productoDbOk.save((err, productoGuardado) => {
+            return res.json({
+                ok: true,
+                producto: productoGuardado,
+                img: nombreArchivo
+            })
+        })
+
+    })
 }
 
 /**

@@ -39,9 +39,36 @@ let verificaToken = (req, res, next) => {
 
 };
 
+
 /**
- * Verificacion del rol adecuado para operaciones(ADMIN_ROLE)
+ * Verificacion  del token para imagen
  */
+let verificaTokenImg = (req, res, next) => {
+        let token = req.query.token
+
+        jwt.verify(token, process.env.SEED_TOKEN, (err, decoded) => {
+
+            if (err) {
+                return res.status(401).json({
+                    ok: false,
+                    err: {
+                        message: 'Token no válido',
+                        err
+                    }
+                });
+            }
+
+            req.usuario = decoded.usuario;
+            // console.log('Variable usuario en req:', decoded);
+            next();
+
+        });
+
+
+    }
+    /**
+     * Verificacion del rol adecuado para operaciones(ADMIN_ROLE)
+     */
 let verificaRole = (req, res, next) => {
 
     let role = req.usuario
@@ -61,4 +88,4 @@ let verificaRole = (req, res, next) => {
 }
 
 
-module.exports = { verificaToken, verificaRole }
+module.exports = { verificaToken, verificaRole, verificaTokenImg }
