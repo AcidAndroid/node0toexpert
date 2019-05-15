@@ -27,11 +27,16 @@ io.on('connection', (cliente) => {
         console.log(data);
 
 
-        if (data.usuario) {
-            callback({ respuesta: 'Respuesta recibida y procesada correctamente!' });
-        } else {
-            callback({ respuesta: 'No se proporciono usuario!' });
+
+        if (callback) {
+            if (data.usuario) {
+                callback({ respuesta: 'Respuesta recibida y procesada correctamente!' });
+            } else {
+                callback({ respuesta: 'No se proporciono usuario!' });
+            }
         }
+
+
 
 
     })
@@ -39,6 +44,9 @@ io.on('connection', (cliente) => {
 
     //Respuesta emitida al cliente desde el servidor
     cliente.emit('enviarMensaje', { usaurio: 'Servidor/Admin', mensaje: 'Hola. Bienvenido' })
+
+    //Enviado a todos los clientes
+    cliente.broadcast.emit('enviarMensaje', { usaurio: 'Servidor/Admin', mensaje: 'Hola a Todos. Bienvenido' })
 
 
 })
