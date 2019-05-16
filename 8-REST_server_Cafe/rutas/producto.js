@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('../node_modules/express');
 const app = express()
     /**
      * Middleware para validar token
@@ -106,33 +106,33 @@ app.get('/producto/:id', (req, res) => {
 /**
  * Bsuqeda de productos por un termino
  */
-app.get('/producto/buscar/:termino',[verificaToken], (req, res) => {
+app.get('/producto/buscar/:termino', [verificaToken], (req, res) => {
 
 
     let termino = req.params.termino
 
-let reg = new RegExp(termino,'i')
+    let reg = new RegExp(termino, 'i')
 
-    modeloProducto.find({nombre:reg})
-    // .populate('categoria', 'nombre')
-    .exec((err,productosDbOk)=>{
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err,
-            })
-        }
+    modeloProducto.find({ nombre: reg })
+        // .populate('categoria', 'nombre')
+        .exec((err, productosDbOk) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err,
+                })
+            }
 
-        if (!productosDbOk) {
-            return res.json({
-                ok: false,
-                err: {
-                    messasge: 'No hay productos con esa clave'
-                }
-            })
-        }
+            if (!productosDbOk) {
+                return res.json({
+                    ok: false,
+                    err: {
+                        messasge: 'No hay productos con esa clave'
+                    }
+                })
+            }
 
-    });
+        });
 
 });
 

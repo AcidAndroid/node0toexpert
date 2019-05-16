@@ -5,7 +5,7 @@
 /**
  * Json Web Token
  */
-const jwt = require('jsonwebtoken');
+const jwt = require('../node_modules/jsonwebtoken');
 
 
 

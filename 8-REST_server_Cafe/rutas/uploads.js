@@ -1,5 +1,5 @@
-const express = require('express');
-const file = require('express-fileupload');
+const express = require('../node_modules/express');
+const file = require('../node_modules/express-fileupload/lib');
 const ruta = express();
 
 /**

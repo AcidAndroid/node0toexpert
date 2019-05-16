@@ -1,14 +1,14 @@
 /**
  * Dependnecias 
  * */
-const express = require('express');
+const express = require('../node_modules/express');
 const app = express();
 //Libreria para encriptar
-const bcrypt = require('bcrypt');
+const bcrypt = require('../node_modules/bcrypt/bcrypt');
 /**
  * Libreria para dar uso y filtrado de que atributos quitar de un JSON entre otras cosas
  */
-const underscore = require('underscore');
+const underscore = require('../node_modules/underscore/underscore');
 
 
 /**

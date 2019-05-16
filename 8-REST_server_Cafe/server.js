@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const express = require('express');
+const express = require('./node_modules/express');
 const app = express();
 
 
@@ -8,7 +8,7 @@ require('./config/config')
 
 //Ahora se maneja en un archivo de configuracion
 // const port = process.env.PORT | 3000
-const bodyParser = require('body-parser');
+const bodyParser = require('./node_modules/body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 

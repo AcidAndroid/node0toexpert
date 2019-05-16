@@ -4,27 +4,27 @@
 /** 
  * Express
  */
-const express = require('express');
+const express = require('../node_modules/express');
 const app = express();
 
 /**
  * Libreria de encriptacion
  */
-const bcrypt = require('bcrypt');
+const bcrypt = require('../node_modules/bcrypt/bcrypt');
 /**
  * Json Web Token
  */
-const jwt = require('jsonwebtoken');
+const jwt = require('../node_modules/jsonwebtoken');
 
 /**
  * Libreria para dar uso y filtrado de que atributos quitar de un JSON entre otras cosas
  */
-const underscore = require('underscore');
+const underscore = require('../node_modules/underscore/underscore');
 
 /**
  * Librerias para validar token de Google
  */
-const { OAuth2Client } = require('google-auth-library');
+const { OAuth2Client } = require('../node_modules/google-auth-library/build/src');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 /**
