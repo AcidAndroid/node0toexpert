@@ -32,7 +32,7 @@ io.on('connection', (client) => {
         client.broadcast.to(data.sala).emit('listaPersonas', usuarios.getPersonasPorSala(data.sala))
 
         //Se regresa al cliente los usaurios conectados inclido el mismo
-        callback({ err: false, mensaje: "", usuarios: usuarios.getPersonasPorSala(data.sala) })
+        callback(usuarios.getPersonasPorSala(data.sala))
     })
 
     /**
