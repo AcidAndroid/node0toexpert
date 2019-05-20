@@ -13,8 +13,12 @@ class Usuarios {
 
     }
 
-    agregarPersona(id, nombre) {
-        let persona = { id, nombre }
+    agregarPersona(id, nombre, sala) {
+        let persona = {
+            id,
+            nombre,
+            sala
+        }
         this.personas.push(persona)
 
         return this.personas
@@ -29,13 +33,17 @@ class Usuarios {
     }
 
     getPersonasPorSala(sala) {
-
+        let personasPorSala = this.personas.filter(persona => persona.sala === sala)
+        console.log('Personas en la sala', personasPorSala);
+        return personasPorSala
     }
 
     borrarPersona(id) {
 
-        let personaBorrada = getPersona(id)
-        this.personas = this.personas.filter(persona => { persona.id != id })
+
+        let personaBorrada = this.getPersona(id)
+
+        this.personas = this.personas.filter(persona => persona.id != id);
 
         return personaBorrada
     }
@@ -43,4 +51,6 @@ class Usuarios {
 
 }
 
-module.exports = { Usuarios }
+module.exports = {
+    Usuarios
+}
