@@ -30,6 +30,7 @@ io.on('connection', (client) => {
 
         //Enviar a todos los de la misma sala
         client.broadcast.to(data.sala).emit('listaPersonas', usuarios.getPersonasPorSala(data.sala))
+        client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Administrador', `${data.nombre} entro al chat.`))
 
         //Se regresa al cliente los usaurios conectados inclido el mismo
         callback(usuarios.getPersonasPorSala(data.sala))
@@ -43,20 +44,20 @@ io.on('connection', (client) => {
         let personaBorrada = usuarios.borrarPersona(client.id)
 
 
-        console.log('Persona borrada socket', personaBorrada);
-        if (personaBorrada) {
-            client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Servidor', `${personaBorrada.nombre} salio del chat.`))
-        }
+
+        client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Administrador', `${personaBorrada.nombre} salio del chat.`))
+
 
         client.broadcast.to(personaBorrada.sala).emit('listaPersonas', usuarios.getPersonasPorSala(personaBorrada.sala))
 
     })
 
     /**Momento de enviar un mensaje por un usuario */
-    client.on('crearMensaje', (data) => {
+    client.on('crearMensaje', (data, callback) => {
         let persona = usuarios.getPersona(client.id)
         let mensaje = crearMensaje(persona.nombre, data.mensaje)
         client.broadcast.to(persona.sala).emit('crearMensaje', mensaje)
+        callback(mensaje);
     })
 
     client.on('mensajePrivado', data => {
