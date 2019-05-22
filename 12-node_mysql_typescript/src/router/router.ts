@@ -1,26 +1,51 @@
-import { Router,Request,Response } from "express";
+import { Router, Request, Response } from 'express';
+import MySQL from '../mysql/mysql';
 
-const router = Router()
+const router = Router();
 
-router.get('/heroes',(req:Request,resp:Response)=>{
+router.get('/heroes', (req: Request, resp: Response) => {
+	const id = req.params.id;
 
-    resp.json({
-        ok:true
-        ,mensaje:"Hola Mundo"
-    })
+	const qry: string = 'select * from heroes';
 
-})
+	MySQL.ejecutarQuery(qry, (err: any, heroes: any) => {
+		if (err) {
+			return resp.json({
+				ok: false,
+				error: err
+			});
+		}
 
-router.get('/heroes/:id',(req:Request,resp:Response)=>{
+		return resp.json({
+			ok: true,
+			heroes
+		});
+	});
+});
 
-    const id = req.params.id
+router.get('/heroes/:id', (req: Request, resp: Response) => {
+    const id = req.params.id;
+        
 
-    resp.json({
-        ok:true
-        ,mensaje:`Id enviado: ${id}`
-        ,id
-    })
+	const qry: string = 'select * from heroes where idheroes=' +  MySQL.instance.cnn.escape(id);
 
-})
+	MySQL.ejecutarQuery(qry, (err: any, heroes: any) => {
 
-export default router
+        if(err){
+            return resp.json({
+                ok:false
+                ,error:err
+            })
+        }
+
+        return resp.json({
+            ok:true
+            ,heroes
+        })
+
+    });
+
+	
+});
+
+export default router;

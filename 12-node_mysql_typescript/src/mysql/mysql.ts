@@ -17,11 +17,24 @@ export default class MySQL {
 		this.conectarDb();
 	}
 
+	public static get instance() {
+		return this._intance || (this._intance = new this());
+	}
 
-    public static get instance(){
-        return this._intance || (this._intance= new this())
-    }
+	static ejecutarQuery(qry: string, callback: Function) {
+		this.instance.cnn.query(qry, (err, result, fields) => {
+			if (err) {
+                console.log('Error en query:', err);
+                return callback(err)
+            }
+            
+            if (result.length===0) {
+                return callback('No hay resultados')                
+            }
 
+            callback(null,result)
+		});
+	}
 	private conectarDb() {
 		this.cnn.connect((err: mysql.MysqlError) => {
 			if (err) {

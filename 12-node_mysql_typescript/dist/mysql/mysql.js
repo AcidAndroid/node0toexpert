@@ -16,6 +16,18 @@ class MySQL {
     static get instance() {
         return this._intance || (this._intance = new this());
     }
+    static ejecutarQuery(qry, callback) {
+        this.instance.cnn.query(qry, (err, result, fields) => {
+            if (err) {
+                console.log('Error en query:', err);
+                return callback(err);
+            }
+            if (result.length === 0) {
+                return callback('No hay resultados');
+            }
+            callback(null, result);
+        });
+    }
     conectarDb() {
         this.cnn.connect((err) => {
             if (err) {

@@ -7,10 +7,10 @@ import MySQL from './mysql/mysql';
 const server = Server.init(3000)
 
 //NO Usa el patron singleton aqui;cada linea crea una nueva instancia
-const mysql = new MySQL()
-const mysql2 = new MySQL()
-const mysql3= new MySQL()
-const mysql4 = new MySQL()
+// const mysql = new MySQL()
+// const mysql2 = new MySQL()
+// const mysql3= new MySQL()
+// const mysql4 = new MySQL()
 
 //Usa el patron singleton asqui,Todas las llamadas usan la misma instancia
 MySQL.instance

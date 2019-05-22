@@ -7,12 +7,12 @@ const server_1 = __importDefault(require("./server/server"));
 const router_1 = __importDefault(require("./router/router"));
 const mysql_1 = __importDefault(require("./mysql/mysql"));
 const server = server_1.default.init(3000);
-//NO Usa el patron singleton aqui
-const mysql = new mysql_1.default();
-const mysql2 = new mysql_1.default();
-const mysql3 = new mysql_1.default();
-const mysql4 = new mysql_1.default();
-//Usa el patron singleton asqui
+//NO Usa el patron singleton aqui;cada linea crea una nueva instancia
+// const mysql = new MySQL()
+// const mysql2 = new MySQL()
+// const mysql3= new MySQL()
+// const mysql4 = new MySQL()
+//Usa el patron singleton asqui,Todas las llamadas usan la misma instancia
 mysql_1.default.instance;
 mysql_1.default.instance;
 mysql_1.default.instance;
